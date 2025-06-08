@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetterboxdFeed", "LetterboxdFeed\LetterboxdFeed.csproj", "{A41DFCF3-F543-404D-B71D-EFE3241D0077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetterboxdFeed.Tests", "LetterboxdFeed.Tests\LetterboxdFeed.Tests.csproj", "{87EA95FA-106C-47FE-85B0-0D90DA018DCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A41DFCF3-F543-404D-B71D-EFE3241D0077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41DFCF3-F543-404D-B71D-EFE3241D0077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41DFCF3-F543-404D-B71D-EFE3241D0077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41DFCF3-F543-404D-B71D-EFE3241D0077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EA95FA-106C-47FE-85B0-0D90DA018DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EA95FA-106C-47FE-85B0-0D90DA018DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EA95FA-106C-47FE-85B0-0D90DA018DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EA95FA-106C-47FE-85B0-0D90DA018DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
