@@ -20,19 +20,19 @@ public class LetterboxdFeed : IDisposable
     /// </summary>
     public event EventHandler<MovieWatchedEventArgs>? MovieWatched;
     /// <summary>
-    /// 
+    /// Event triggered when an error occurs while processing the feed.
     /// </summary>
     public event EventHandler<LetterboxdErrorEventArgs>? ErrorOccurred;
     /// <summary>
-    /// 
+    /// Event triggered when polling starts.
     /// </summary>
     public event EventHandler? PollingStarted;
     /// <summary>
-    /// 
+    /// Event triggered when polling stops.
     /// </summary>
     public event EventHandler? PollingStopped;
     /// <summary>
-    /// 
+    /// Get the usernames that are being watched.
     /// </summary>
     /// <returns></returns>
     public IReadOnlySet<string> GetUsernames() => _usernames.ToHashSet();
@@ -44,7 +44,7 @@ public class LetterboxdFeed : IDisposable
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="username"></param>
+    /// <param name="username">Username of the letterboxd account</param>
     /// <exception cref="ArgumentException"></exception>
     public void AddUsername(string username)
     {
@@ -53,9 +53,9 @@ public class LetterboxdFeed : IDisposable
         _usernames.Add(username);
     }
     /// <summary>
-    /// 
+    /// Remove a username from the watch list.
     /// </summary>
-    /// <param name="username"></param>
+    /// <param name="username">Username of the letterboxd account</param>
     /// <exception cref="ArgumentException"></exception>
     public void RemoveUsername(string username)
     {
@@ -77,7 +77,7 @@ public class LetterboxdFeed : IDisposable
         }
     }
     /// <summary>
-    /// 
+    /// Starts polling the Letterboxd feed for updates.
     /// </summary>
     public void StartPolling()
     {
@@ -96,7 +96,7 @@ public class LetterboxdFeed : IDisposable
         PollingStarted?.Invoke(this, EventArgs.Empty);
     }
     /// <summary>
-    /// 
+    /// Stops the polling of the Letterboxd feed.
     /// </summary>
     public void StopPolling()
     {
@@ -114,12 +114,11 @@ public class LetterboxdFeed : IDisposable
     /// </summary>
     public async Task<Media?> GetLatestMovieAsync(string username)
     {
-
         var movies = await GetUserMoviesAsync(username);
         return movies?.OrderByDescending(x => x.PublishingDate).FirstOrDefault();
     }
     /// <summary>
-    /// 
+    /// GetCached movie for a specific user, if it exists in the cache.
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
@@ -165,6 +164,7 @@ public class LetterboxdFeed : IDisposable
         {
             if (lastmovie.MovieId == movie.MovieId)
             {
+                // TODO: Check if the movie has been updated (e.g., new review, rewatch)
                 return; // Same movie, no update
             }
         }
@@ -238,7 +238,7 @@ public class LetterboxdFeed : IDisposable
         }
     }
 
-    private static string? ExtractReviewText(string text)
+    private static string ExtractReviewText(string text)
     {
         const string regex = @"<p><img[^>]*></p>\s*";
         var cleanedText = Regex.Replace(text, regex, string.Empty, RegexOptions.IgnoreCase);
