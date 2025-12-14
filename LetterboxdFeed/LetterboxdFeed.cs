@@ -7,7 +7,7 @@ using LetterboxdFeed.Options;
 using Timer = System.Timers.Timer;
 namespace LetterboxdFeed;
 
-public class LetterboxdFeed : IDisposable
+public partial class LetterboxdFeed : IDisposable
 {
     private readonly LetterboxdFeedOptions _options;
     private Timer? _timer;
@@ -162,7 +162,7 @@ public class LetterboxdFeed : IDisposable
         // Check if this is a new movie
         if (_movieCache.TryGetValue(username, out var lastmovie))
         {
-            if (lastmovie.MovieId == movie.MovieId)
+            if (lastmovie.MediaId == movie.MediaId)
             {
                 // TODO: Check if the movie has been updated (e.g., new review, rewatch)
                 return; // Same movie, no update
@@ -204,7 +204,7 @@ public class LetterboxdFeed : IDisposable
                 var movieIdElement = item.Element(tmdb + "movieId");
                 var tvIdElement = item.Element(tmdb + "tvId");
                 var isTvShow = movieIdElement == null && tvIdElement != null;
-                var movieId = int.Parse((movieIdElement ?? tvIdElement)?.Value ?? "-1");
+                var mediaId = int.Parse((movieIdElement ?? tvIdElement)?.Value ?? "-1");
                 var isARewatch = item.Element(letterboxd + "rewatch")?.Value == "Yes";
                 var title = item.Element(letterboxd + "filmTitle")?.Value ?? "Unknown";
                 var filmYear = int.Parse(item.Element(letterboxd + "filmYear")?.Value ?? "-1");
@@ -225,7 +225,7 @@ public class LetterboxdFeed : IDisposable
                     // User has given a review, time to clean it up
                     review = ExtractReviewText(opinion);
                 }
-                movies.Add(new Media(movieId, title, filmYear, rate, link, watchDate, 
+                movies.Add(new Media(mediaId, title, filmYear, rate, link, watchDate, 
                     titleLetterboxd, pubDate, review, isARewatch, isTvShow));
             }
             
@@ -240,10 +240,9 @@ public class LetterboxdFeed : IDisposable
 
     private static string ExtractReviewText(string text)
     {
-        const string regex = @"<p><img[^>]*></p>\s*";
-        var cleanedText = Regex.Replace(text, regex, string.Empty, RegexOptions.IgnoreCase);
+        var cleanedText = MyRegexToGetText().Replace(text, string.Empty);
         
-        var matches = Regex.Matches(cleanedText, @"<p>(.*?)</p>", RegexOptions.Singleline);
+        var matches = MyRegexText().Matches(cleanedText);
         var textBuilder = new System.Text.StringBuilder();
 
         foreach (Match match in matches)
@@ -257,5 +256,9 @@ public class LetterboxdFeed : IDisposable
     {
         _timer?.Dispose();
     }
-    
+
+    [GeneratedRegex(@"<p><img[^>]*></p>\s*", RegexOptions.IgnoreCase, "fr-FR")]
+    private static partial Regex MyRegexToGetText();
+    [GeneratedRegex(@"<p>(.*?)</p>", RegexOptions.Singleline)]
+    private static partial Regex MyRegexText();
 }

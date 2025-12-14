@@ -4,7 +4,7 @@
 /// Represents a media item in the Letterboxd feed.
 /// </summary>
 public record Media(
-    int MovieId,
+    int MediaId,
     string Title,
     int FilmYear,
     double Rate,
@@ -21,7 +21,7 @@ public record Media(
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
 
-        return MovieId == other.MovieId &&
+        return MediaId == other.MediaId &&
                Title == other.Title &&
                FilmYear == other.FilmYear &&
                Rate.Equals(other.Rate) &&
@@ -37,7 +37,7 @@ public record Media(
     public override int GetHashCode()
     {
         var hashCode = new HashCode();
-        hashCode.Add(MovieId);
+        hashCode.Add(MediaId);
         hashCode.Add(Title);
         hashCode.Add(FilmYear);
         hashCode.Add(Rate);
