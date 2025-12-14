@@ -5,15 +5,23 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>Lettererboxd Feed</Title>
-        <PackageId>LetterBoxdFeed</PackageId>
+        <Title>Letterboxd Feed</Title>
+        <PackageId>LetterboxdFeed</PackageId>
         <Description>A lightweight .NET library that retrieves and streams Letterboxd activity (reviews, ratings, diary entries) using an event-driven model.</Description>
         <Authors>AdelPalente</Authors>
-        <Version>1.0.0-alpha</Version>
-        
-        <PackageTags>letterboxd;letterboxfeed</PackageTags>
+        <Version>1.0.0</Version>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>letterboxd;letterboxfeed;rss;movies;tracking;feed</PackageTags>
         <RepositoryUrl>https://github.com/Palente/LetterboxdFeed</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
         <PackageProjectUrl>https://github.com/Palente/LetterboxdFeed</PackageProjectUrl>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
 </Project>
+
