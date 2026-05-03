@@ -12,7 +12,7 @@ public record Media(
     DateOnly WatchedTime,
     string TitleLetterboxd,
     DateTime PublishingDate,
-    string? Review = null,
+    Review? Review = null,
     bool IsARewatch = false,
     bool IsTvShow = false)
 {
