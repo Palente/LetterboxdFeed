@@ -218,14 +218,14 @@ public partial class LetterboxdFeed : IDisposable
                 var pubDate = DateTime.Parse(pubDateString, CultureInfo.InvariantCulture);
                 var opinion = item.Element("description")?.Value ?? string.Empty;
 
-                string? reviewText = null;
+
                 Review? review = null;
-                var containsSpoilers = false;
                 // Hack, if no opinion is given, rss return "Watched on {date}"
                 if (!opinion.Contains("Watched on"))
                 {
                     // User has given a review, extract the text and check for spoilers
-                    reviewText = ExtractReviewText(opinion);
+                    string reviewText = ExtractReviewText(opinion);
+                    var containsSpoilers = false;
                     if (reviewText.Contains("<em>This review may contain spoilers.</em>"))
                     {
                         reviewText = reviewText.Replace("<em>This review may contain spoilers.</em>", string.Empty).Trim();
