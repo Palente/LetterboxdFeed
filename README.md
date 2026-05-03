@@ -49,7 +49,11 @@ feed.MovieWatched += (sender, args) =>
     Console.WriteLine($"Rating: {args.Movie.Rate}/5");
     if (args.Movie.Review != null)
     {
-        Console.WriteLine($"Review: {args.Movie.Review}");
+        if (args.Movie.Review.ContainsSpoilers)
+        {
+            Console.WriteLine("Warning: This review may contain spoilers.");
+        }
+        Console.WriteLine($"Review: {args.Movie.Review.Text}");
     }
 };
 
@@ -130,12 +134,12 @@ foreach (var movie in allMovies)
 | `MediaId` | `int` | TMDB ID |
 | `Title` | `string` | Movie/TV show title |
 | `FilmYear` | `int` | Release year |
-| `Rate` | `float` | User rating (0-5) |
+| `Rate` | `double` | User rating (0-5) |
 | `Link` | `string` | Letterboxd entry URL |
-| `WatchedDate` | `DateOnly` | Date watched |
+| `WatchedTime` | `DateOnly` | Date watched |
 | `TitleLetterboxd` | `string` | Full Letterboxd title |
 | `PublishingDate` | `DateTime` | RSS publish date |
-| `Review` | `string?` | User review text |
+| `Review` | `Review?` | User review (record with Text and ContainsSpoilers properties) |
 | `IsARewatch` | `bool` | Whether it's a rewatch |
 | `IsTvShow` | `bool` | Whether it's a TV show |
 
@@ -151,4 +155,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 - [GitHub Repository](https://github.com/Palente/LetterboxdFeed)
 - [NuGet Package](https://www.nuget.org/packages/LetterboxdFeed)
-
